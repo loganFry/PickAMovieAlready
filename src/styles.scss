@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~material-design-icons/iconfont/material-icons.css';
+
+
+$font-stack: 'Roboto', Arial, sans-serif;
+$primary-blue: #15BFDE;
+
+* {
+    font-family: $font-stack;
+    margin: 0;
+    padding: 0;
+}

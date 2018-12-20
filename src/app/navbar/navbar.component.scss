@@ -1,0 +1,9 @@
+@import "../../styles.scss";
+
+.nav {
+    background-color: $primary-blue;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    color: white;
+}
