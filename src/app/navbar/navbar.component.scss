@@ -1,9 +1,23 @@
+// Make global style variables available
 @import "../../styles.scss";
 
-.nav {
+#nav {
     background-color: $primary-blue;
     width: 100%;
     position: fixed;
     top: 0;
     color: white;
+    text-align: center;
+    padding: 1%;
+}
+
+#menu-icon {
+    float: left;
+    font-size: 2.5em;
+}
+
+#banner {
+    font-size: 2em;
+    width: 100%;
+    margin: auto;
 }
