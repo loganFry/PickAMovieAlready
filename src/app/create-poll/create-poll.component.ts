@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Movie } from '../movie';
+import { MovieService } from '../movie.service';
 
 @Component({
   selector: 'app-create-poll',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatePollComponent implements OnInit {
 
-  constructor() { }
+  movies: Movie[];
+
+  constructor(private movieService: MovieService) { }
 
   ngOnInit() {
+    this.movies = this.movieService.getMovies();
   }
 
 }

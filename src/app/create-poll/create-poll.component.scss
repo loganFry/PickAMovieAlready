@@ -1,0 +1,56 @@
+@import "../../styles.scss";
+
+#search-box {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: block;
+    width: 100%;
+    max-width: 700px;
+}
+
+#create-poll-component {
+    width: 80%;
+    padding: 10px;
+    margin: auto;
+    color: $accent-grey;
+}
+
+#current-movies{
+    list-style-type: none;
+    text-align: center;
+}
+
+.movie-item {
+    border: 2px solid $accent-grey;
+    margin: 15px 0;
+}
+
+.movie-thumbnail {
+    height: 100%;
+    object-fit: contain;
+    //float: left;
+}
+
+.vertical-center {
+    height: 100%;
+    
+}
+
+// .close-icon {
+//     float: right;
+// }
+
+#save {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 40px;
+    max-width: 700px;
+}
+
+.movie-container {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
