@@ -2,7 +2,7 @@
     <input #searchBox id="search-box" placeholder="Search for movies..." (input)="search(searchBox.value)" />
     <ul class="movie-list">
       <li class="search-item" *ngFor="let movie of searchMovies">
-        <div class="movie-container">
+        <div (click)="addMovie(movie);searchBox.value = ''" class="movie-container">
             <img class="movie-thumbnail" src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
             <span>{{ movie.title }}</span>
             <i class="material-icons">add</i>
@@ -17,7 +17,7 @@
       <div class="movie-container">
           <img class="movie-thumbnail" src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
           <span>{{ movie.title }}</span>
-          <i class="material-icons">close</i>
+          <i (click)="removeMovie(movie)" class="material-icons">close</i>
       </div>
     </li>
   </ul>

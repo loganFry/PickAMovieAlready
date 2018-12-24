@@ -38,6 +38,20 @@ export class CreatePollComponent implements OnInit {
     this.movieService.getMovies().subscribe(movies => this.movies = movies.results.slice(0, 6))
   }
 
+  addMovie(movie: Movie): void {
+    // If the movie isn't already in the list, add it.
+    if(!this.movies.find(x => x.id === movie.id)){
+      this.movies.push(movie);
+    }
+    
+    // Clear the search results.
+    this.search("");
+  }
+
+  removeMovie(movie: Movie): void {
+    this.movies = this.movies.filter(x => x.id !== movie.id);
+  }
+
   // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);

@@ -23,7 +23,8 @@ export class MovieService {
   searchMovies(query: string): Observable<MovieCollection> {
     if (!query.trim()) {
       // if not search term, return empty hero array.
-      return of([]);
+      var empty = new MovieCollection();
+      return of(empty);
     }
     return this.http.get<MovieCollection>(`${this.searchUrl}&query=${query}&page=1&include_adult=false`)
   }
