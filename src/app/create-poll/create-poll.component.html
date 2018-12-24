@@ -1,23 +1,23 @@
 <div id="create-poll-component">
     <input #searchBox id="search-box" placeholder="Search for movies..." (input)="search(searchBox.value)" />
-    <ul>
-      <li *ngFor="let movie of searchMovies">
+    <ul class="movie-list">
+      <li class="search-item" *ngFor="let movie of searchMovies">
         <div class="movie-container">
             <img class="movie-thumbnail" src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
             <span>{{ movie.title }}</span>
-            <i class="close-icon" class="material-icons">close</i>
+            <i class="material-icons">add</i>
         </div>
       </li>
     </ul>
-    <p>Movies in your poll:</p>
+    <p id="poll-desc">Movies in your poll:</p>
     
 
-  <ul id="current-movies">
+  <ul class="movie-list">
     <li class="movie-item" *ngFor="let movie of movies" >
       <div class="movie-container">
           <img class="movie-thumbnail" src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
           <span>{{ movie.title }}</span>
-          <i class="close-icon" class="material-icons">close</i>
+          <i class="material-icons">close</i>
       </div>
     </li>
   </ul>
