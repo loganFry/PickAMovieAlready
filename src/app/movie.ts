@@ -1,5 +1,7 @@
 export class Movie {
     id: number;
-    name: string;
-    imagePath: string;
+    title: string;
+    poster_path: string;
+    overview: string;
+    release_date: string;
 }
