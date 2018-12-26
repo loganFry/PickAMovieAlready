@@ -13,7 +13,7 @@
     
 
   <ul class="movie-list">
-    <li class="movie-item" *ngFor="let movie of movies" >
+    <li class="movie-item" *ngFor="let movie of poll.movies" >
       <div class="movie-container">
           <img class="movie-thumbnail" src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
           <span>{{ movie.title }}</span>

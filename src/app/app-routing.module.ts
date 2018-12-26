@@ -4,7 +4,7 @@ import { CreatePollComponent } from './create-poll/create-poll.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: 'create', component: CreatePollComponent },  
+  { path: 'create/:id', component: CreatePollComponent },  
   { path: '', pathMatch: 'full', component: HomeComponent }
 ];
 
