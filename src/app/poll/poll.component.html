@@ -1,3 +1,19 @@
-<p>
-  poll works!
-</p>
+<div class="container" >
+  <div class="row">
+    <div class="col-sm">
+      <h2>Movies to choose from:</h2>
+      <ul class="list-group">
+        <li (click)="voteForMovie(movie);" [class.current-vote]="currentVote && currentVote.id === movie.id" class="list-group-item" *ngFor="let movie of poll.movies"> 
+          {{movie.title}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm">
+      <h2>Voting results:</h2>
+      <ul>
+        <li *ngFor="let movie of poll.movies">{{movie.title}} votes: {{movie.votes}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+  

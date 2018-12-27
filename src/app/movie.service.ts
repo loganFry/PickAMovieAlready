@@ -48,4 +48,11 @@ export class MovieService {
   removeMovie(pollId: string, movieId: number) : Observable<ApiResponse> {
     return this.http.put<ApiResponse>(`${this.pollApiBase}/${pollId}/removeMovie`, {"movieId": movieId});
   }
+
+  voteForMovie(pollId: string, movieId: number, oldMovieId?: number): Observable<ApiResponse>{
+    return this.http.put<ApiResponse>(`${this.pollApiBase}/${pollId}/voteForMovie`, {
+      "movieId": movieId,
+      "oldMovieId": oldMovieId ? oldMovieId : null
+    });
+  }
 }
