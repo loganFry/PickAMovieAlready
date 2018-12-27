@@ -8,6 +8,7 @@ import {
 import { MovieCollection } from '../movie-collection';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Poll } from '../poll';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-poll',
@@ -20,8 +21,11 @@ export class CreatePollComponent implements OnInit {
   private searchTerms = new Subject<string>();
   private paramsSub : Subscription;
   poll: Poll;
+  showShare: boolean;
+  shareUrl: string;
+  closeResult: string;
 
-  constructor(private movieService: MovieService, private route : ActivatedRoute) { }
+  constructor(private movieService: MovieService, private route: ActivatedRoute, private modalService: NgbModal) { }
 
   ngOnInit() {
     // initialize poll to dummy data
@@ -36,12 +40,17 @@ export class CreatePollComponent implements OnInit {
  
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.movieService.searchMovies(term)),
-    ).subscribe(collection => this.searchMovies = collection.results);
+    ).subscribe(collection => {
+      this.searchMovies = collection.results;
+    });
 
     this.paramsSub = this.route.params.subscribe(params => {
       // get details of poll
       this.movieService.getPoll(params['id']).subscribe(res => {
         this.poll = res.data as Poll;
+        this.shareUrl = `localhost:4200/poll/${this.poll._id}`;
+        console.log("Retrieved poll from db:")
+        console.log(this.poll)
       })
     })
   }
@@ -78,6 +87,24 @@ export class CreatePollComponent implements OnInit {
   // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
+  }
+
+  copyToClipboard(message: string): void{
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = message;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
 }

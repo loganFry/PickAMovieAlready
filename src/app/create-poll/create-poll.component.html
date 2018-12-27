@@ -30,7 +30,24 @@
         </li>
       </ul>
 
-      <button class="btn btn-primary btn-lg" id="save">Save Poll</button>
+      <button (click)="open(content)" class="btn btn-primary btn-lg" id="share">Share Poll</button>
+      
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Share Your Poll</h4>
+          <button class="btn" type="button" aria-label="Close" (click)="modal.dismiss()">
+            <i class="material-icons">close</i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Share your poll using this link:</p>
+          <a href="{{shareUrl}}">{{shareUrl}}</a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="copyToClipboard(shareUrl);modal.close()">Copy to clipboard</button>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
