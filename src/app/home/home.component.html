@@ -1,12 +1,18 @@
-<div id="main">
-  <h1 id="welcome">
-    Welcome to PickAMovieAlready!
-  </h1>
-  <p id="desc">
-    PickAMovieAlready allows you to quickly and easily 
-    create polls to choose a movie to watch with friends.
-    No more wasting time figuring out what movie each 
-    individual person wants to watch!
-  </p>
-  <button (click)="createPoll()">Create new poll</button>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="jumbotron">
+        <h1 >Welcome to PickAMovieAlready!</h1>
+        <p class="lead">
+          PickAMovieAlready allows you to quickly and easily 
+          create polls to choose a movie to watch with friends.
+          No more wasting time figuring out what movie each 
+          individual person wants to watch!
+        </p>
+        <hr class="my-4">
+        <p>Get started by creating a new movie poll!</p>
+        <a class="btn btn-primary btn-lg" role="button" (click)="createPoll()">Create new poll</a>
+      </div>
+    </div>
+  </div>
 </div>

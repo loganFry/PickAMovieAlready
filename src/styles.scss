@@ -3,32 +3,31 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 
-$font-stack: 'Roboto', Arial, sans-serif;
 $primary-blue: #15BFDE;
 $accent-grey: #707070;
 
-* {
-    font-family: $font-stack;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// * {
+//     font-family: $font-stack;
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+// }
 
 body {
-    padding-top: 50px;
-    background-color: #e8e8e8;
+    padding-top: 70px;
+    //background-color: #e8e8e8;
 }
 
-p {
-    line-height: 25px;
-    padding: 5px;
-}
+// p {
+//     line-height: 25px;
+//     padding: 5px;
+// }
 
-button, input {
-    border: 2px solid $accent-grey;
-    color: $accent-grey;
-    background-color: white;
-    padding: 5px;
-    font-size: 1em;
-    cursor: pointer;
-}
+// button, input {
+//     border: 2px solid $accent-grey;
+//     color: $accent-grey;
+//     background-color: white;
+//     padding: 5px;
+//     font-size: 1em;
+//     cursor: pointer;
+// }
