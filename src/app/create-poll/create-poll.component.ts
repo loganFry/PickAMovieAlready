@@ -47,8 +47,8 @@ export class CreatePollComponent implements OnInit {
       this.movieService.getPoll(params['id']).subscribe(res => {
         this.poll = res.data as Poll;
         this.shareUrl = `localhost:4200/poll/${this.poll._id}`;
-        console.log("Retrieved poll from db:")
-        console.log(this.poll)
+        console.log("Retrieved poll from db:");
+        console.log(this.poll);
       })
     })
   }

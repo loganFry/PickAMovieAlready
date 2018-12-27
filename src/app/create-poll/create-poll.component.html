@@ -15,9 +15,8 @@
           </div>
         </li>
       </ul>
+      
       <p id="poll-desc">Movies in your poll:</p>
-
-
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let movie of poll.movies">
           <div class="movie-container">
@@ -41,7 +40,7 @@
         </div>
         <div class="modal-body">
           <p>Share your poll using this link:</p>
-          <a href="{{shareUrl}}">{{shareUrl}}</a>
+          <a [routerLink]="['/poll', poll._id]" (click)="modal.close()">{{shareUrl}}</a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>

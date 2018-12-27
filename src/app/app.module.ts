@@ -8,6 +8,7 @@ import { CreatePollComponent } from './create-poll/create-poll.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { PollComponent } from './poll/poll.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     NavbarComponent,
     CreatePollComponent,
-    HomeComponent
+    HomeComponent,
+    PollComponent
   ],
   imports: [
     BrowserModule,
