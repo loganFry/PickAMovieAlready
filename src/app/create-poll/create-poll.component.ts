@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../movie';
 import { MovieService } from '../movie.service';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
-import { MovieCollection } from '../movie-collection';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Poll } from '../poll';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-poll',
@@ -21,7 +20,6 @@ export class CreatePollComponent implements OnInit {
   private searchTerms = new Subject<string>();
   private paramsSub : Subscription;
   poll: Poll;
-  showShare: boolean;
   shareUrl: string;
   closeResult: string;
 
