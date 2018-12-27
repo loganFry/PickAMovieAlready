@@ -1,39 +1,36 @@
-<div id="create-poll-component">
-    <input #searchBox id="search-box" placeholder="Search for movies..." 
-      (input)="search(searchBox.value)" 
-      (blur)="searchBox.value = '';search('');" />
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <input #searchBox id="search-box" placeholder="Search for movies..." class="form-control" (input)="search(searchBox.value)"
+        (blur)="searchBox.value = '';search('');" />
 
-    <ul class="movie-list">
-      <li class="search-item" *ngFor="let movie of searchMovies">
-        <div (click)="addMovie(movie);searchBox.value = ''" 
-          class="movie-container">
-            <img class="movie-thumbnail" 
-              src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
+      <ul class="list-group">
+        <li class="list-group-item search-item" *ngFor="let movie of searchMovies">
+          <div (click)="addMovie(movie);searchBox.value = ''" class="movie-container">
+            <img class="movie-thumbnail" src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
             <div class="vertical-center">{{ movie.title }}</div>
             <div class="vertical-center">
               <i class="material-icons">add</i>
             </div>
-        </div>
-      </li>
-    </ul>
-    <p id="poll-desc">Movies in your poll:</p>
-    
-
-  <ul class="movie-list">
-    <li class="movie-item" *ngFor="let movie of poll.movies" >
-      <div class="movie-container">
-          <img class="movie-thumbnail" 
-            src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
-          <div class="vertical-center">{{ movie.title }}</div>
-          <div class="vertical-center">
-            <i (click)="removeMovie(movie)" class="material-icons">close</i>
           </div>
-      </div>
-    </li>
-  </ul>
+        </li>
+      </ul>
+      <p id="poll-desc">Movies in your poll:</p>
 
-  <button id="save">Save</button>
+
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let movie of poll.movies">
+          <div class="movie-container">
+            <img class="movie-thumbnail" src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
+            <div class="vertical-center">{{ movie.title }}</div>
+            <button class="btn">
+                <i (click)="removeMovie(movie)" class="material-icons">close</i>
+            </button>
+          </div>
+        </li>
+      </ul>
+
+      <button class="btn btn-primary btn-lg" id="save">Save Poll</button>
+    </div>
+  </div>
 </div>
- 
-
-
