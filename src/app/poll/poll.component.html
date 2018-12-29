@@ -1,14 +1,27 @@
-<div class="container" >
+<div class="container-fluid" >
   <div class="row">
     <div class="col-sm">
       <h2>Movies to choose from:</h2>
-      <ul class="list-group">
-        <li (click)="voteForMovie(movie);" [class.current-vote]="currentVote && currentVote.id === movie.id" class="list-group-item" *ngFor="let movie of poll.movies"> 
-          {{movie.title}}
-        </li>
-      </ul>
+      <div class="d-flex flex-row card mb-4" [class.current-vote]="currentVote && currentVote.id === movie.id" *ngFor="let movie of poll.movies">
+          <div class="card-header movie-card border-0">
+              <img class="movie-thumbnail" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" >
+          </div>
+          <div class="card-body px-2">
+              <h5 class="card-title">{{movie.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{movie.release_date}}</h6>
+              <p class="card-text">{{movie.overview}}</p>
+              <button 
+              [disabled]="currentVote && currentVote.id === movie.id"
+              (click)="voteForMovie(movie);"
+              class="btn btn-primary">
+                Vote for {{movie.title}}
+              </button>
+          </div>
+      </div>
     </div>
     <div class="col-sm">
+      <h2>Voting results:</h2>
+      <h4 class="text-muted">The current leader is {{currentMax.title}}!</h4>
       <app-chart [movies]="poll.movies"></app-chart>
     </div>
   </div>

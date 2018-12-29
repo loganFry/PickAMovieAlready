@@ -4,3 +4,12 @@
     border: 2px solid $primary-blue;
     color: $primary-blue;
 }
+
+.movie-card {
+    height: 200px;
+}
+
+.movie-thumbnail {
+    height: 100%;
+    object-fit: fill;
+}

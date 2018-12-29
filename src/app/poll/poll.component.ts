@@ -15,6 +15,7 @@ export class PollComponent implements OnInit {
   private paramsSub: Subscription;
   poll: Poll;
   currentVote: Movie;
+  currentMax: Movie;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute) { }
 
@@ -24,6 +25,7 @@ export class PollComponent implements OnInit {
     this.paramsSub = this.route.params.subscribe(params => {
       this.movieService.getPoll(params['id']).subscribe(res => {
         this.poll = res.data as Poll;
+        this.findMaxVoted();
         console.log("Retrieved poll from db:");
         console.log(this.poll);
       });
@@ -32,6 +34,17 @@ export class PollComponent implements OnInit {
 
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
+  }
+
+  findMaxVoted(): void {
+    var max: Movie = this.poll.movies[0];
+    for(var i = 0; i < this.poll.movies.length; i++){
+      if(this.poll.movies[i].votes > max.votes){
+        max = this.poll.movies[i];
+      }
+    }
+
+    this.currentMax = max;
   }
 
   voteForMovie(movie: Movie){
@@ -67,6 +80,7 @@ export class PollComponent implements OnInit {
 
     // Update the current vote
     this.currentVote = movie;
+    this.findMaxVoted()
   }
 
 }
