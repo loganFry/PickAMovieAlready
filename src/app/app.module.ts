@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { PollComponent } from './poll/poll.component';
+import { ChartsModule } from 'ng2-charts';
+import { ChartComponent } from './chart/chart.component';
 
 
 @NgModule({
@@ -17,13 +19,15 @@ import { PollComponent } from './poll/poll.component';
     NavbarComponent,
     CreatePollComponent,
     HomeComponent,
-    PollComponent
+    PollComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,16 @@
+<h2>Voting results:</h2>
+<ul>
+  <li *ngFor="let movie of movies">{{movie.title}} votes: {{movie.votes}}</li>
+</ul>
+<div>
+    <canvas baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [legend]="barChartLegend"
+    [chartType]="barChartType"
+    [colors]="chartColors"
+    (chartHover)="chartHovered($event)"
+    (chartClick)="chartClicked($event)"></canvas>
+</div>
+

@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MovieService } from '../movie.service';
 import { Poll } from '../poll';
 import { Movie } from '../movie';
-import { currentId } from 'async_hooks';
 
 @Component({
   selector: 'app-poll',
@@ -37,12 +36,22 @@ export class PollComponent implements OnInit {
 
   voteForMovie(movie: Movie){
     // Increase the vote number for the movie
-    this.poll.movies.find(x => x.id === movie.id).votes++;
+    this.poll.movies = this.poll.movies.map(x => {
+      if(x.id === movie.id){
+        x.votes++;
+      }
+      return x;
+    });
 
     // Depending on whether or not the user has already voted,
     // decrease vote count from the previous vote
     if(this.currentVote){
-      this.poll.movies.find(x => x.id === this.currentVote.id).votes--;
+      this.poll.movies = this.poll.movies.map(x => {
+        if(x.id === this.currentVote.id){
+          x.votes--;
+        }
+        return x;
+      });
       this.movieService.voteForMovie(this.poll._id, movie.id, this.currentVote.id).subscribe(res => {
         if(res.status === 200){
           console.log("Successfully voted and removed old vote")

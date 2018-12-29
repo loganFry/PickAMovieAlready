@@ -9,10 +9,7 @@
       </ul>
     </div>
     <div class="col-sm">
-      <h2>Voting results:</h2>
-      <ul>
-        <li *ngFor="let movie of poll.movies">{{movie.title}} votes: {{movie.votes}}</li>
-      </ul>
+      <app-chart [movies]="poll.movies"></app-chart>
     </div>
   </div>
 </div>
