@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Poll } from '../poll';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-poll',
@@ -46,7 +47,7 @@ export class CreatePollComponent implements OnInit {
       // get details of poll
       this.movieService.getPoll(params['id']).subscribe(res => {
         this.poll = res.data as Poll;
-        this.shareUrl = `localhost:4200/poll/${this.poll._id}`;
+        this.shareUrl = `${environment.client.baseUrl}/poll/${this.poll._id}`;
         console.log("Retrieved poll from db:");
         console.log(this.poll);
       })
