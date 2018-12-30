@@ -40,7 +40,7 @@
         </div>
         <div class="modal-body">
           <p>Share your poll using this link:</p>
-          <button [routerLink]="['/poll', poll._id]" (click)="modal.close()">{{shareUrl}}</button>
+          <a [routerLink]="['/poll', poll._id]" (click)="modal.close()">{{shareUrl}}</a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
