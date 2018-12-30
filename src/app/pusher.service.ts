@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 declare const Pusher: any;
 
 @Injectable({
@@ -9,8 +10,8 @@ export class PusherService {
   channel: any;
 
   constructor() {
-    this.pusher = new Pusher('21edfa48d7919be4ec20', {
-      cluster: 'us2'
+    this.pusher = new Pusher(environment.pusher.key, {
+      cluster: environment.pusher.cluster
     });
     this.channel = this.pusher.subscribe('polls');
   }

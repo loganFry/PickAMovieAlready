@@ -5,18 +5,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MovieCollection } from './movie-collection';
 import { ApiResponse } from './api-response';
 import { Poll } from './poll';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
 
-  private apiKey = 'b81172effc504f17715f4b15b0eb8d1d'
+  private apiKey = environment.mdb.key;
   private searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${this.apiKey}&language=en-US`
   private discoverUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
 
 
-  private pollApiBase = `http://localhost:3000/api/polls`
+  private pollApiBase = environment.pollApi.baseUrl;
 
   constructor(private http: HttpClient) { }
 
