@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   buttonClicked: boolean;
+  apiMessage: string;
 
   constructor(private movieService : MovieService, private router : Router) { }
 
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
     this.movieService.createPoll().subscribe(
       res => {
         let poll = res.data as Poll;
+        this.apiMessage = 'api returned with status ' + res.status;
         this.router.navigate(['/create', poll._id]);
       }
     );
