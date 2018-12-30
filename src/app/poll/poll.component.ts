@@ -15,7 +15,6 @@ export class PollComponent implements OnInit {
   private paramsSub: Subscription;
   poll: Poll;
   currentVote: Movie;
-  currentMax: Movie;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute) { }
 
@@ -25,7 +24,6 @@ export class PollComponent implements OnInit {
     this.paramsSub = this.route.params.subscribe(params => {
       this.movieService.getPoll(params['id']).subscribe(res => {
         this.poll = res.data as Poll;
-        this.findMaxVoted();
         console.log("Retrieved poll from db:");
         console.log(this.poll);
       });
@@ -36,35 +34,10 @@ export class PollComponent implements OnInit {
     this.paramsSub.unsubscribe();
   }
 
-  findMaxVoted(): void {
-    var max: Movie = this.poll.movies[0];
-    for(var i = 0; i < this.poll.movies.length; i++){
-      if(this.poll.movies[i].votes > max.votes){
-        max = this.poll.movies[i];
-      }
-    }
-
-    this.currentMax = max;
-  }
+  
 
   voteForMovie(movie: Movie){
-    // Increase the vote number for the movie
-    this.poll.movies = this.poll.movies.map(x => {
-      if(x.id === movie.id){
-        x.votes++;
-      }
-      return x;
-    });
-
-    // Depending on whether or not the user has already voted,
-    // decrease vote count from the previous vote
     if(this.currentVote){
-      this.poll.movies = this.poll.movies.map(x => {
-        if(x.id === this.currentVote.id){
-          x.votes--;
-        }
-        return x;
-      });
       this.movieService.voteForMovie(this.poll._id, movie.id, this.currentVote.id).subscribe(res => {
         if(res.status === 200){
           console.log("Successfully voted and removed old vote")
@@ -80,7 +53,6 @@ export class PollComponent implements OnInit {
 
     // Update the current vote
     this.currentVote = movie;
-    this.findMaxVoted()
   }
 
 }

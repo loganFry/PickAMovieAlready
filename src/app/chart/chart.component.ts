@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Movie } from '../movie';
+import { PusherService } from '../pusher.service'
+import { VoteResult } from './vote-result';
+import { Poll } from '../poll';
 
 @Component({
   selector: 'app-chart',
@@ -28,17 +31,56 @@ export class ChartComponent implements OnInit {
     }
   ];
   public barChartData:any[] = [];
+  private _poll: Poll;
+  currentMax: Movie;
 
-  constructor() { }
+  constructor(private pusherService: PusherService) { }
 
   @Input()
-  set movies(movies: Movie[]){
+  set poll(poll: Poll){
+    this._poll = poll;
+    this.newData(poll.movies);
+  }
+
+  private newData(movies: Movie[]){
     this.barChartLabels = movies.map(x => x.title);
     var votesData = movies.map(x => x.votes);
     this.barChartData = [{ data: votesData }]
   }
 
   ngOnInit() {
+    this.findMaxVoted();
+
+    const channel = this.pusherService.init();
+    channel.bind('new-vote', (data: VoteResult) => {
+      console.log('event fired! event data:')
+      console.log(data)
+      console.log('current poll data:')
+      console.log(this._poll)
+      if(data.pollId === this._poll._id){
+        this._poll.movies = this._poll.movies.map(x => {
+          if(x.id === data.movieId){
+            x.votes++;
+          } else if(data.oldMovieId && x.id === data.oldMovieId){
+            x.votes--;
+          }
+          return x;
+        });
+      }
+      this.poll = this._poll;
+      this.findMaxVoted();
+    });
+  }
+
+  findMaxVoted(): void {
+    var max: Movie = this._poll.movies[0];
+    for(var i = 0; i < this._poll.movies.length; i++){
+      if(this._poll.movies[i].votes > max.votes){
+        max = this._poll.movies[i];
+      }
+    }
+
+    this.currentMax = max;
   }
 
   // events
