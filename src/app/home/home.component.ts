@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  buttonClicked: boolean;
+
   constructor(private movieService : MovieService, private router : Router) { }
 
   ngOnInit() {
   }
 
   createPoll() : void {
+    this.buttonClicked = true;
     this.movieService.createPoll().subscribe(
       res => {
         let poll = res.data as Poll;

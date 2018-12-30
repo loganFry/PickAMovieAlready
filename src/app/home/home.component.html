@@ -12,6 +12,7 @@
         <hr class="my-4">
         <p>Get started by creating a new movie poll!</p>
         <button class="btn btn-primary btn-lg" (click)="createPoll()">Create new poll</button>
+        <p *ngIf="buttonClicked">Button was clicked</p>
       </div>
     </div>
   </div>
