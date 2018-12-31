@@ -9,6 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Poll } from '../poll';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
+import { PusherService } from '../pusher.service';
+import { AddMovieEvent } from './add-movie-event';
+import { RemoveMovieEvent } from './remove-movie-event';
 
 @Component({
   selector: 'app-create-poll',
@@ -24,7 +27,11 @@ export class CreatePollComponent implements OnInit {
   shareUrl: string;
   closeResult: string;
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute, private modalService: NgbModal) { }
+  constructor(
+    private movieService: MovieService, 
+    private route: ActivatedRoute, 
+    private modalService: NgbModal,
+    private pusherService: PusherService) { }
 
   ngOnInit() {
     // initialize poll to dummy data
@@ -50,8 +57,24 @@ export class CreatePollComponent implements OnInit {
         this.shareUrl = `${environment.client.baseUrl}/poll/${this.poll._id}`;
         console.log("Retrieved poll from db:");
         console.log(this.poll);
-      })
-    })
+      });
+    });
+
+    const channel = this.pusherService.init();
+
+    // Listen for the add movie event
+    channel.bind('add-movie', (data: AddMovieEvent) => {
+      if(data.pollId === this.poll._id){
+        this.poll.movies.push(data.movie);
+      }
+    });
+
+    // Listen for the remove movie event
+    channel.bind('remove-movie', (data: RemoveMovieEvent) => {
+      if(data.pollId === this.poll._id){
+        this.poll.movies = this.poll.movies.filter(x => x.id !== data.movieId);
+      }
+    });
   }
 
   ngOnDestroy(){
@@ -61,7 +84,6 @@ export class CreatePollComponent implements OnInit {
   addMovie(movie: Movie): void {
     // If the movie isn't already in the list, add it.
     if(!this.poll.movies.find(x => x.id === movie.id)){
-      this.poll.movies.push(movie);
       movie.votes = 0;
       this.movieService.addMovie(this.poll._id, movie).subscribe(res => {
         if (res.status === 200){
@@ -75,7 +97,6 @@ export class CreatePollComponent implements OnInit {
   }
 
   removeMovie(movie: Movie): void {
-    this.poll.movies = this.poll.movies.filter(x => x.id !== movie.id);
     this.movieService.removeMovie(this.poll._id, movie.id).subscribe(res => {
       if(res.status === 200){
         console.log('Successfully removed movie from poll');

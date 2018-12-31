@@ -53,10 +53,6 @@ export class ChartComponent implements OnInit {
 
     const channel = this.pusherService.init();
     channel.bind('new-vote', (data: VoteResult) => {
-      console.log('event fired! event data:')
-      console.log(data)
-      console.log('current poll data:')
-      console.log(this._poll)
       if(data.pollId === this._poll._id){
         this._poll.movies = this._poll.movies.map(x => {
           if(x.id === data.movieId){
