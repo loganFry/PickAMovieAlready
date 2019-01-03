@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm">
       <input #searchBox id="search-box" placeholder="Search for movies..." class="form-control" (input)="search(searchBox.value)"
-        (blur)="searchBox.value = '';search('');" autocomplete="off"/>
+        (blur)="searchBox.value = '';search('');" autocomplete="off" />
 
       <ul class="list-group">
         <li class="list-group-item search-item" *ngFor="let movie of searchMovies">
@@ -15,7 +15,7 @@
           </div>
         </li>
       </ul>
-      
+
       <p id="poll-desc">Movies in your poll:</p>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let movie of poll.movies">
@@ -23,14 +23,12 @@
             <img class="movie-thumbnail" src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
             <div class="vertical-center">{{ movie.title }}</div>
             <button class="btn">
-                <i (click)="removeMovie(movie)" class="material-icons">close</i>
+              <i (click)="removeMovie(movie)" class="material-icons">close</i>
             </button>
           </div>
         </li>
       </ul>
 
-      
-      
       <ng-template #content let-modal>
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">Share Your Poll</h4>
@@ -51,18 +49,18 @@
           <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
         </div>
       </ng-template>
-      
+
     </div>
 
     <div class="col-sm">
-        <button (click)="open(content)" class="btn btn-primary btn-lg btn-block" id="share">
-            <span class='mr-2'>Share Poll</span>
-            <i class="material-icons">share</i>
-          </button>
-          <button [routerLink]="['/poll', poll._id]" class="btn btn-secondary btn-lg mx-auto d-block mt-3 btn-block">
-            <span class="mr-2">Go To Poll Voting</span>
-            <i class="material-icons">open_in_new</i>
-          </button>
+      <button (click)="open(content)" class="btn btn-primary btn-lg btn-block" id="share">
+        <span class='mr-2'>Share Poll</span>
+        <i class="material-icons">share</i>
+      </button>
+      <button [routerLink]="['/poll', poll._id]" class="btn btn-secondary btn-lg mx-auto d-block mt-3 btn-block">
+        <span class="mr-2">Go To Poll Voting</span>
+        <i class="material-icons">open_in_new</i>
+      </button>
     </div>
   </div>
 </div>
