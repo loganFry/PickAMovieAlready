@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-sm">
       <input #searchBox id="search-box" placeholder="Search for movies..." class="form-control" (input)="search(searchBox.value)"
-        (blur)="searchBox.value = '';search('');" />
+        (blur)="searchBox.value = '';search('');" autocomplete="off"/>
 
       <ul class="list-group">
         <li class="list-group-item search-item" *ngFor="let movie of searchMovies">
           <div (click)="addMovie(movie);searchBox.value = ''" class="movie-container">
-            <img class="movie-thumbnail" src="{{'https://image.tmdb.org/t/p/w500' + movie.poster_path}}">
+            <img class="movie-thumbnail" src="{{ movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : null}}">
             <div class="vertical-center">{{ movie.title }}</div>
             <div class="vertical-center">
               <i class="material-icons">add</i>
@@ -29,7 +29,7 @@
         </li>
       </ul>
 
-      <button (click)="open(content)" class="btn btn-primary btn-lg" id="share">Share Poll</button>
+      
       
       <ng-template #content let-modal>
         <div class="modal-header">
@@ -39,15 +39,30 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Share your poll using this link:</p>
-          <a [routerLink]="['/poll', poll._id]" (click)="modal.close()">{{shareUrl}}</a>
+          <p>Share this link for poll voting:</p>
+          <a class="mb-2 d-block" [routerLink]="['/poll', poll._id]" (click)="modal.close()">{{voteUrl}}</a>
+          <button type="button" class="btn btn-primary" (click)="copyToClipboard(voteUrl)">Copy Voting Url</button>
+          <hr class="my-4">
+          <p>Share this link for poll editing:</p>
+          <a class="mb-2 d-block" [routerLink]="['/createUrl', poll._id]" (click)="modal.close()">{{createUrl}}</a>
+          <button type="button" class="btn btn-primary" (click)="copyToClipboard(createUrl)">Copy Editing Url</button>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
-          <button type="button" class="btn btn-primary" (click)="copyToClipboard(shareUrl);modal.close()">Copy to clipboard</button>
         </div>
       </ng-template>
       
+    </div>
+
+    <div class="col-sm">
+        <button (click)="open(content)" class="btn btn-primary btn-lg btn-block" id="share">
+            <span class='mr-2'>Share Poll</span>
+            <i class="material-icons">share</i>
+          </button>
+          <button [routerLink]="['/poll', poll._id]" class="btn btn-secondary btn-lg mx-auto d-block mt-3 btn-block">
+            <span class="mr-2">Go To Poll Voting</span>
+            <i class="material-icons">open_in_new</i>
+          </button>
     </div>
   </div>
 </div>

@@ -24,7 +24,8 @@ export class CreatePollComponent implements OnInit {
   private searchTerms = new Subject<string>();
   private paramsSub : Subscription;
   poll: Poll;
-  shareUrl: string;
+  voteUrl: string;
+  createUrl: string;
   closeResult: string;
 
   constructor(
@@ -54,7 +55,8 @@ export class CreatePollComponent implements OnInit {
       // get details of poll
       this.movieService.getPoll(params['id']).subscribe(res => {
         this.poll = res.data as Poll;
-        this.shareUrl = `${environment.client.baseUrl}/poll/${this.poll._id}`;
+        this.voteUrl = `${environment.client.baseUrl}/poll/${this.poll._id}`;
+        this.createUrl = `${environment.client.baseUrl}/create/${this.poll._id}`;
         console.log("Retrieved poll from db:");
         console.log(this.poll);
       });
@@ -109,18 +111,51 @@ export class CreatePollComponent implements OnInit {
     this.searchTerms.next(term);
   }
 
-  copyToClipboard(message: string): void{
-    let selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = message;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
+  copyToClipboard(message: string): boolean {
+    let result, textArea;
+
+    try {
+      // Create a temporary textarea to copy from
+      textArea = document.createElement('textarea');
+      // readonly to stop keyboard popping up
+      textArea.setAttribute('readonly', 'true'); 
+      // contenteditable to allow copying on iOS
+      textArea.setAttribute('contenteditable', 'true');
+      // position fixed to prevent page from scrolling to new element when focus is set
+      textArea.style.position = 'fixed';
+      textArea.style.left = '0';
+      textArea.style.top = '0';
+      textArea.style.opacity = '0';
+
+      // set temp element text to the text to be copied
+      textArea.value = message;
+
+      // add the temp element to the document
+      document.body.appendChild(textArea);
+
+      // select and focus the temp element
+      textArea.focus();
+      textArea.select();
+
+      // select the contents of the temp element
+      const range = document.createRange();
+      range.selectNodeContents(textArea);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      textArea.setSelectionRange(0, textArea.value.length);
+
+      // copy the text
+      result = document.execCommand('copy');
+    } catch(err) {
+      console.error(err);
+      result = null;
+    } finally {
+      // remove the temp element
+      document.body.removeChild(textArea);
+    }
+    
+    return result;
   }
 
   open(content) {
