@@ -5,11 +5,10 @@
     color: $primary-blue;
 }
 
-.movie-card {
-    height: 200px;
-}
-
 .movie-thumbnail {
-    height: 100%;
-    object-fit: fill;
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+    float: left;
+    margin-right: 10px;
 }

@@ -5,4 +5,5 @@ export class Movie {
     overview: string;
     release_date: string;
     votes: number;
+    vote_average: number;
 }

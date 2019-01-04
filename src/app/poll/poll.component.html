@@ -2,14 +2,21 @@
   <div class="row">
     <div class="col-sm">
       <h2>Movies to choose from:</h2>
-      <div class="d-flex flex-row card mb-4" [class.current-vote]="currentVote && currentVote.id === movie.id" *ngFor="let movie of poll.movies">
-          <div class="card-header movie-card border-0">
-              <img class="movie-thumbnail" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" >
+      <div class="card mb-4" [class.current-vote]="currentVote && currentVote.id === movie.id" *ngFor="let movie of poll.movies">
+          <div class="card-header border-0 d-flex flex-row justify-content-between">
+            <div>
+                <h5 class="card-title d-inline">{{movie.title}} </h5>
+                <h6 class="card-subtitle mb-2 text-muted d-inline">({{movie.release_date | date: 'yyyy'}})</h6>
+            </div>
+            <div>
+                <ngb-rating [(rate)]="movie.vote_average" [readonly]="true"></ngb-rating>
+            </div>
           </div>
-          <div class="card-body px-2">
-              <h5 class="card-title">{{movie.title}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{movie.release_date}}</h6>
+          <div class="card-body px-2">    
+              <img class="movie-thumbnail" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" >
               <p class="card-text">{{movie.overview}}</p>
+          </div>
+          <div class="card-footer">
               <button 
               [disabled]="currentVote && currentVote.id === movie.id"
               (click)="voteForMovie(movie);"
